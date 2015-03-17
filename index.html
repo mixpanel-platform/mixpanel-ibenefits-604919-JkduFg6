@@ -32,13 +32,13 @@
           var dateRange = dateSelect.MPDatepicker('value');
           var eventName = 'Login';
           var propName = 'Company Name'; //this will be the var you set when you pass in from CMS
-          if (eventName && propName) {
+          //if (eventName && propName) {
             MP.api.segment(eventName, propName, dateRange).done(function(results) {
               data = results.values();
               eventGraph.MPChart('setData', data);
               eventTable.MPTable('setData', data);
             });
-          }
+          //}
         };
         
         eventSelect.on('change', function(e, eventName) {
