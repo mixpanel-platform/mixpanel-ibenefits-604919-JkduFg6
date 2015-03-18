@@ -40,9 +40,17 @@
               
           params['from'] = dateRange.from.toISOString().substring(0, 10);
           params['to'] = dateRange.to.toISOString().substring(0, 10);
-              
-          if (propName) {
+          
+          if (eventName && propName) {
             MP.api.segment(eventName, propName, params).done(function(results) {
+              data = results.values();
+              eventGraph.MPChart('setData', data);
+              eventTable.MPTable('setData', data);
+            });
+          }
+          
+          if (eventName){
+            MP.api.segment(eventName, "Company Name", params).done(function(results) {
               data = results.values();
               eventGraph.MPChart('setData', data);
               eventTable.MPTable('setData', data);
