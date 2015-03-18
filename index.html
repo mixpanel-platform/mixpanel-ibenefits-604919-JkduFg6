@@ -20,7 +20,7 @@
       MP.api.ready(function() {
         //var eventSelect = $('#eventSelect').MPEventSelect();
         var eventName = 'Login';
-        var propSelect  = $('#propSelect').MPPropertySelect('setEvent', eventName);
+        var propSelect  = $('#propSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
@@ -35,7 +35,7 @@
         }
         
         var runQuery = function() {
-          var propName  = propSelect.MPPropertySelect('value'),
+          var propName  = propSelect.MPPropertySelect('setEvent', eventName),
               dateRange = dateSelect.MPDatepicker('value');
               
           params['from'] = dateRange.from.toISOString().substring(0, 10);
