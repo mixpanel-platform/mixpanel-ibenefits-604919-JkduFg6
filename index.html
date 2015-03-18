@@ -19,7 +19,8 @@
     <script>
       MP.api.ready(function() {
         //var eventSelect = $('#eventSelect').MPEventSelect();
-        //var propSelect  = $('#propSelect').MPPropertySelect();
+        var eventName = 'Login';
+        var propSelect  = $('#propSelect').MPPropertySelect('setEvent', eventName);
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
@@ -27,30 +28,35 @@
           firstColHeader: 'Event'
         });
         
+        params = {
+          'where': 'properties["Company Name"] == Epic',
+          'to': '2015-01-01',
+          'from': '2015-01-01'
+        }
+        
         var runQuery = function() {
-          //var eventName = eventSelect.MPEventSelect('value'),
-          //    propName  = propSelect.MPPropertySelect('value'),
-          var dateRange = dateSelect.MPDatepicker('value');
-          var eventName = 'Login';
-          var propName = 'Company Name'; //this will be the var you set when you pass in from CMS
-          //if (eventName && propName) {
-            MP.api.segment(eventName, propName, dateRange).done(function(results) {
+          var propName  = propSelect.MPPropertySelect('value'),
+              dateRange = dateSelect.MPDatepicker('value');
+              
+          params['from'] = dateRange.from.toISOString().substring(0, 10);
+          params['to'] = dateRange.to.toISOString().substring(0, 10);
+              
+          if (propName) {
+            MP.api.segment(eventName, propName, params).done(function(results) {
               data = results.values();
               eventGraph.MPChart('setData', data);
               eventTable.MPTable('setData', data);
             });
-          //}
+          }
         };
-        
-        runQuery();
         
         /*eventSelect.on('change', function(e, eventName) {
           propSelect.MPPropertySelect('setEvent', eventName);
           $("#by").show();
           runQuery();
-        });
+        });*/
         
-        propSelect.on('change', runQuery);*/
+        propSelect.on('change', runQuery);
         
         dateSelect.on('change', runQuery);
         
