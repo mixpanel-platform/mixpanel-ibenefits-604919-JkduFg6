@@ -35,7 +35,7 @@
         }
         
         var runQuery = function() {
-          var propName  = propSelect.MPPropertySelect('value'),
+          var propName  = propSelect.MPPropertySelect('setEvent', eventName),
               dateRange = dateSelect.MPDatepicker('value');
               
           params['from'] = dateRange.from.toISOString().substring(0, 10);
